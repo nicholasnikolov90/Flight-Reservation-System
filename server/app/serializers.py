@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Flight
+from . models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
+
+
 
 #These serializers are used to send JSON to the front end
 
@@ -8,3 +10,17 @@ class FlightSerializer(serializers.ModelSerializer):
         model = Flight
         fields = '__all__'
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+class RegisteredUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegisteredUser
+        fields = '__all__'
+
+class SeatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Seat
+        fields = '__all__'
