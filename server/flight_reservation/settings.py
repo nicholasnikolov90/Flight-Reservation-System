@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'users'
+    'reservation'
 ]
 
 MIDDLEWARE = [
@@ -82,8 +82,6 @@ DATABASES = {
         "PASSWORD": 'WxIZz9vVrEH9',
         "PORT": 3306,
         "HOST": '127.0.0.1', 
-
-
     }
 }
 
