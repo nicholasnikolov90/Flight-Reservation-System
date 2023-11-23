@@ -156,3 +156,240 @@ VALUES
 (8, 4, 1),
 (9, 5, 0),
 (10, 5, 1);
+
+-- all comfort seats
+INSERT INTO Seat (flight_ID, seat_number, seat_type, availability, price)
+VALUES
+(1, 4, 'C', 1, 350.00),
+(1, 5, 'C', 1, 350.00),
+(1, 6, 'C', 1, 350.00),
+(1, 7, 'C', 1, 350.00),
+(1, 8, 'C', 1, 350.00),
+(1, 9, 'C', 1, 350.00),
+(1, 10, 'C', 1, 350.00),
+(1, 11, 'C', 1, 350.00),
+(1, 12, 'C', 1, 350.00),
+(1, 13, 'C', 1, 350.00),
+(1, 14, 'C', 1, 350.00),
+(1, 15, 'C', 1, 350.00);
+
+-- All business seats
+INSERT INTO Seat (flight_ID, seat_number, seat_type, availability, price)
+VALUES
+(1, 16, 'B', 1, 500.00),
+(1, 17, 'B', 1, 500.00),
+(1, 18, 'B', 1, 500.00),
+(1, 19, 'B', 1, 500.00),
+(1, 20, 'B', 1, 500.00),
+(1, 21, 'B', 1, 500.00),
+(1, 22, 'B', 1, 500.00),
+(1, 23, 'B', 1, 500.00),
+(1, 24, 'B', 1, 500.00),
+(1, 25, 'B', 1, 500.00),
+(1, 26, 'B', 1, 500.00),
+(1, 27, 'B', 1, 500.00);
+
+-- All ordinary seats
+INSERT INTO Seat (flight_ID, seat_number, seat_type, availability, price)
+VALUES
+(1, 28, 'O', 1, 250.00),
+(1, 29, 'O', 1, 250.00),
+(1, 30, 'O', 1, 250.00),
+(1, 31, 'O', 1, 250.00),
+(1, 32, 'O', 1, 250.00),
+(1, 33, 'O', 1, 250.00),
+(1, 34, 'O', 1, 250.00),
+(1, 35, 'O', 1, 250.00),
+(1, 36, 'O', 1, 250.00),
+(1, 37, 'O', 1, 250.00),
+(1, 38, 'O', 1, 250.00),
+(1, 39, 'O', 1, 250.00),
+(1, 40, 'O', 1, 250.00),
+(1, 41, 'O', 1, 250.00),
+(1, 42, 'O', 1, 250.00),
+(1, 43, 'O', 1, 250.00),
+(1, 44, 'O', 1, 250.00),
+(1, 45, 'O', 1, 250.00),
+(1, 46, 'O', 1, 250.00),
+(1, 47, 'O', 1, 250.00),
+(1, 48, 'O', 1, 250.00);
+
+update Seat
+set seat_type = 'C', price = 350
+where flight_ID = 1 and seat_number between 1 and 12;
+
+update Seat
+set seat_type = 'B', price = 500
+where flight_ID = 1 and seat_number between 13 and 24;
+
+update Seat 
+set seat_type = 'O', price = 250
+where flight_ID = 1 and seat_number between 25 and 48;
+
+-- select * 
+-- from Seat
+-- where flight_ID = 1
+-- order by seat_number asc;
+
+-- Comfort seats
+INSERT INTO User (seat_ID, flight_ID)
+VALUES
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1);
+
+-- Business seats
+INSERT INTO User (seat_ID, flight_ID)
+VALUES
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1),
+(25, 1),
+(26, 1),
+(27, 1);
+
+-- Ordinary seats
+INSERT INTO User (seat_ID, flight_ID)
+VALUES
+(28, 1),
+(29, 1),
+(30, 1),
+(31, 1),
+(32, 1),
+(33, 1),
+(34, 1),
+(35, 1),
+(36, 1),
+(37, 1),
+(38, 1),
+(39, 1),
+(40, 1),
+(41, 1),
+(42, 1),
+(43, 1),
+(44, 1),
+(45, 1),
+(46, 1),
+(47, 1),
+(48, 1);
+
+-- select *
+-- from User
+-- where flight_ID = 1;
+
+INSERT INTO registeredUser (user_ID, first_name, last_name, address)
+VALUES
+(11, 'Emma', 'Johnson', '123 Main St, Apt 11'),
+(12, 'Noah', 'Smith', '456 Oak St, Apt 12'),
+(13, 'Olivia', 'Williams', '789 Pine St, Apt 13'),
+(14, 'Liam', 'Brown', '456 Elm St, Apt 14'),
+(15, 'Ava', 'Jones', '789 Maple St, Apt 15'),
+(16, 'Mia', 'Davis', '123 Birch St, Apt 16'),
+(17, 'Sophia', 'Taylor', '456 Cedar St, Apt 17'),
+(18, 'Jackson', 'Clark', '789 Oak St, Apt 18'),
+(19, 'Lucas', 'Anderson', '123 Pine St, Apt 19'),
+(20, 'Lily', 'Martinez', '456 Maple St, Apt 20'),
+(21, 'Logan', 'Hernandez', '789 Elm St, Apt 21'),
+(22, 'Emma', 'Garcia', '123 Cedar St, Apt 22'),
+(23, 'Aiden', 'Rodriguez', '456 Birch St, Apt 23'),
+(24, 'Ella', 'Lopez', '789 Cedar St, Apt 24'),
+(25, 'Caden', 'Perez', '123 Maple St, Apt 25'),
+(26, 'Aria', 'Williams', '456 Oak St, Apt 26'),
+(27, 'Grayson', 'Smith', '789 Pine St, Apt 27'),
+(28, 'Amelia', 'Davis', '123 Elm St, Apt 28'),
+(29, 'Mason', 'Taylor', '456 Cedar St, Apt 29'),
+(30, 'Harper', 'Clark', '789 Oak St, Apt 30'),
+(31, 'Ethan', 'Anderson', '123 Pine St, Apt 31'),
+(32, 'Charlotte', 'Martinez', '456 Maple St, Apt 32'),
+(33, 'Oliver', 'Hernandez', '789 Elm St, Apt 33'),
+(34, 'Isabella', 'Garcia', '123 Cedar St, Apt 34'),
+(35, 'Sophie', 'Rodriguez', '456 Birch St, Apt 35'),
+(36, 'Benjamin', 'Lopez', '789 Cedar St, Apt 36'),
+(37, 'Aiden', 'Perez', '123 Maple St, Apt 37'),
+(38, 'Evelyn', 'Williams', '456 Oak St, Apt 38'),
+(39, 'Leo', 'Smith', '789 Pine St, Apt 39'),
+(40, 'Avery', 'Davis', '123 Elm St, Apt 40'),
+(41, 'Jack', 'Taylor', '456 Cedar St, Apt 41'),
+(42, 'Madison', 'Clark', '789 Oak St, Apt 42'),
+(43, 'Scarlett', 'Anderson', '123 Pine St, Apt 43'),
+(44, 'Gabriel', 'Martinez', '456 Maple St, Apt 44'),
+(45, 'Riley', 'Hernandez', '789 Elm St, Apt 45'),
+(46, 'David', 'Garcia', '123 Cedar St, Apt 46'),
+(47, 'Zoe', 'Rodriguez', '456 Birch St, Apt 47'),
+(48, 'Julian', 'Lopez', '789 Cedar St, Apt 48'),
+(49, 'Leah', 'Perez', '123 Maple St, Apt 49'),
+(50, 'Jackson', 'Williams', '456 Oak St, Apt 50'),
+(51, 'Chloe', 'Smith', '789 Pine St, Apt 51'),
+(52, 'Lucy', 'Davis', '123 Elm St, Apt 52'),
+(53, 'Ryan', 'Taylor', '456 Cedar St, Apt 53'),
+(54, 'Ellie', 'Clark', '789 Oak St, Apt 54'),
+(55, 'Nathan', 'Anderson', '123 Pine St, Apt 55');
+
+-- select *
+-- from registeredUser
+
+INSERT INTO Booking (user_ID, flight_ID, insurance)
+VALUES
+(11, 1, 1),
+(12, 1, 0),
+(13, 2, 1),
+(14, 2, 0),
+(15, 3, 1),
+(16, 3, 1),
+(17, 4, 0),
+(18, 4, 1),
+(19, 5, 0),
+(20, 5, 1),
+(21, 1, 1),
+(22, 1, 0),
+(23, 2, 1),
+(24, 2, 0),
+(25, 3, 1),
+(26, 3, 1),
+(27, 4, 0),
+(28, 4, 1),
+(29, 5, 0),
+(30, 5, 1),
+(31, 1, 1),
+(32, 1, 0),
+(33, 2, 1),
+(34, 2, 0),
+(35, 3, 1),
+(36, 3, 1),
+(37, 4, 0),
+(38, 4, 1),
+(39, 5, 0),
+(40, 5, 1),
+(41, 1, 1),
+(42, 1, 0),
+(43, 2, 1),
+(44, 2, 0),
+(45, 3, 1),
+(46, 3, 1),
+(47, 4, 0),
+(48, 4, 1),
+(49, 5, 0),
+(50, 5, 1),
+(51, 1, 1),
+(52, 1, 0),
+(53, 2, 1),
+(54, 2, 0),
+(55, 3, 1);
+
+select *
+from Booking;
