@@ -1,4 +1,4 @@
-from django.db import models
+"""from django.db import models
 
 class Seat(models.Model):
     flight_ID = models.ForeignKey('Flight', on_delete=models.CASCADE)
@@ -59,4 +59,4 @@ class Booking(models.Model):
     insurance = models.BooleanField() #1 if insurance was purchase, 0 if no insurance was purchased
 
     def __str__(self):
-        return "Booking ID: " + self.pk
+        return "Booking ID: " + self.pk"""

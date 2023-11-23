@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MIGRATION_MODULES = {
+    'app': None
+}
 
 # Application definition
 
@@ -78,7 +81,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "reservations",  #Name of the database youre running, 
+        "NAME": "ENSF614FinalProject",  #Name of the database youre running, 
         "USER": 'root',
         "PASSWORD": 'WxIZz9vVrEH9',
         "PORT": 3306,
