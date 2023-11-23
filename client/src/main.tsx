@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import BrowseFlight from "./views/BrowseFlight";
 import Home from "./views/Home";
+import SeatMap from "./views/SeatMap";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/browseflight",
     element: <BrowseFlight />,
+  },
+  {
+    path: "/seatmap",
+    element: <SeatMap />,
   },
 ]);
 

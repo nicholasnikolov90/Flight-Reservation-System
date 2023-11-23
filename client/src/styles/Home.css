@@ -1,5 +1,4 @@
 h1 {
-  color: red;
   align-items: center;
   justify-content: center;
 }
@@ -10,7 +9,7 @@ h1 {
   padding: 2rem;
   text-align: center;
 }
-
+/* 
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -45,4 +44,4 @@ h1 {
 
 .read-the-docs {
   color: #888;
-}
+} */
