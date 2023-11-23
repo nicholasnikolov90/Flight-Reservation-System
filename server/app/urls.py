@@ -3,6 +3,10 @@ from . import views
 
 
 urlpatterns = [
+    #COMBINED URLS
+    path('crew-on-flight/<int:pk>', views.crew_on_flight, name='crew-on-flight'), #URL to return the crew on a specific flight
+
+
     #flight URLS
     path('flight-list/', views.show_all_flights, name='flight-list'), #URL for a list of all flights
     path('flight-detail/<int:pk>/', views.show_flight, name='flight-detail'), #URL for a single flight

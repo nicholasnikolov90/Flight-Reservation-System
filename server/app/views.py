@@ -6,6 +6,38 @@ from rest_framework.decorators import api_view
 from .serializers import FlightSerializer, UserSerializer, RegisteredUserSerializer, SeatSerializer, BookingSerializer, PlaneSerializer, CrewSerializer
 from . modelsnew import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
 
+
+""" NON-ENTITY RELATED FUNCTIONS
+These functions satisy some of the other project requirements that aren't just CRUD"""
+
+
+#user is able to make payment
+#@api_view(['GET'])
+#def make_payment(request, pk1, pk2):
+#    flight = Flight.objects.get(id=pk)
+
+
+#registered user will receive their receipt by email
+#@api_view(['POST'])
+#def receive_receipt(request, pk):
+
+#returns all the crew members for a specific flight (pk = flight_id)
+@api_view(['GET'])
+def crew_on_flight(request, pk):
+    flight = Flight.objects.filter(flight_id=pk)
+    crew = Crew.objects.filter(flight=pk)
+
+    f_serializer = FlightSerializer(flight, many=True)
+    c_serializer = CrewSerializer(crew, many=True)
+
+    combined = {
+        'Flight': f_serializer.data,
+        'Crew': c_serializer.data,
+    }
+
+    return Response(combined)
+
+
 """
 FLIGHT VIEWS
 
@@ -41,7 +73,7 @@ def show_all_flights(request):
 #return the information for a single flight, by entering its privatekey (pk)
 @api_view(['GET'])
 def show_flight(request, pk):
-    flight = Flight.objects.get(id=pk)
+    flight = Flight.objects.get(flight_id=pk)
     serializer = FlightSerializer(flight, many=False)
     return Response(serializer.data)
 
@@ -56,7 +88,7 @@ def create_flight(request):
 #Update an existing flight
 @api_view(['POST'])
 def update_flight(request, pk):
-    flight = Flight.objects.get(id=pk)
+    flight = Flight.objects.get(flight_id=pk)
     serializer = FlightSerializer(instance = flight, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -66,7 +98,7 @@ def update_flight(request, pk):
 #delete an existing flight
 @api_view(['DELETE'])
 def delete_flight(request, pk):
-    flight = Flight.objects.get(id=pk)
+    flight = Flight.objects.get(flight_id=pk)
     flight.delete()
 
     return Response('Flight deleted successfully')
@@ -107,8 +139,8 @@ def show_all_users(request):
 #return the information for a single user, by entering its privatekey (pk)
 @api_view(['GET'])
 def show_user(request, pk):
-    user = User.objects.get(id=pk)
-    serializer = UserSerializer(flight, many=False)
+    user = User.objects.get(user_id=pk)
+    serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
 #create a new user
@@ -123,7 +155,7 @@ def create_user(request):
 #Update an existing user
 @api_view(['POST'])
 def update_user(request, pk):
-    user = User.objects.get(id=pk)
+    user = User.objects.get(user_id=pk)
     serializer = UserSerializer(instance = user, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -133,7 +165,7 @@ def update_user(request, pk):
 #delete an existing user
 @api_view(['DELETE'])
 def delete_user(request, pk):
-    user = User.objects.get(id=pk)
+    user = User.objects.get(user_id=pk)
     user.delete()
 
     return Response('User deleted successfully')
@@ -174,7 +206,7 @@ def show_all_seats(request):
 #return the information for a single seat, by entering its privatekey (pk)
 @api_view(['GET'])
 def show_seat(request, pk):
-    seat = Seat.objects.get(id=pk)
+    seat = Seat.objects.get(seat_id=pk)
     serializer = SeatSerializer(seat, many=False)
     return Response(serializer.data)
 
@@ -189,7 +221,7 @@ def create_seat(request):
 #Update an existing seat
 @api_view(['POST'])
 def update_seat(request, pk):
-    seat = Seat.objects.get(id=pk)
+    seat = Seat.objects.get(seat_id=pk)
     serializer = SeatSerializer(instance = seat, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -199,7 +231,7 @@ def update_seat(request, pk):
 #delete an existing seat
 @api_view(['DELETE'])
 def delete_seat(request, pk):
-    seat = Seat.objects.get(id=pk)
+    seat = Seat.objects.get(seat_id=pk)
     seat.delete()
 
     return Response('Seat deleted successfully')
@@ -240,8 +272,8 @@ def show_all_bookings(request):
 #return the information for a single booking, by entering its privatekey (pk)
 @api_view(['GET'])
 def show_booking(request, pk):
-    booking = Booking.objects.get(id=pk)
-    serializer = BookingSerializer(flight, many=False)
+    booking = Booking.objects.get(booking_id=pk)
+    serializer = BookingSerializer(booking, many=False)
     return Response(serializer.data)
 
 #create a new booking
@@ -255,7 +287,7 @@ def create_booking(request):
 #Update an existing booking
 @api_view(['POST'])
 def update_booking(request, pk):
-    booking = Booking.objects.get(id=pk)
+    booking = Booking.objects.get(booking_id=pk)
     serializer = BookingSerializer(instance = booking, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -265,7 +297,7 @@ def update_booking(request, pk):
 #delete an existing booking
 @api_view(['DELETE'])
 def delete_booking(request, pk):
-    booking = Booking.objects.get(id=pk)
+    booking = Booking.objects.get(booking_id=pk)
     booking.delete()
 
     return Response('Booking deleted successfully')
@@ -306,7 +338,7 @@ def show_all_crews(request):
 #return the information for a single crew Member, by entering its privatekey (pk)
 @api_view(['GET'])
 def show_crew(request, pk):
-    crew = Crew.objects.get(id=pk)
+    crew = Crew.objects.get(crew_id=pk)
     serializer = CrewSerializer(crew, many=False)
     return Response(serializer.data)
 
@@ -321,7 +353,7 @@ def create_crew(request):
 #Update an existing crew
 @api_view(['POST'])
 def update_crew(request, pk):
-    crew = Crew.objects.get(id=pk)
+    crew = Crew.objects.get(crew_id=pk)
     serializer = CrewSerializer(instance = crew, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -331,7 +363,7 @@ def update_crew(request, pk):
 #delete an existing crew
 @api_view(['DELETE'])
 def delete_crew(request, pk):
-    crew = Crew.objects.get(id=pk)
+    crew = Crew.objects.get(crew_id=pk)
     crew.delete()
 
     return Response('Crew Member deleted successfully')
@@ -371,7 +403,7 @@ def show_all_planes(request):
 #return the information for a single plane, by entering its privatekey (pk)
 @api_view(['GET'])
 def show_plane(request, pk):
-    plane = Plane.objects.get(id=pk)
+    plane = Plane.objects.get(plane_id=pk)
     serializer = PlaneSerializer(plane, many=False)
     return Response(serializer.data)
 
@@ -386,7 +418,7 @@ def create_plane(request):
 #Update an existing plane
 @api_view(['POST'])
 def update_plane(request, pk):
-    plane = Plane.objects.get(id=pk)
+    plane = Plane.objects.get(plane_id=pk)
     serializer = PlaneSerializer(instance = plane, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -396,7 +428,7 @@ def update_plane(request, pk):
 #delete an existing splaneeat
 @api_view(['DELETE'])
 def delete_plane(request, pk):
-    plane = Plane.objects.get(id=pk)
+    plane = Plane.objects.get(plane_id=pk)
     plane.delete()
 
     return Response('Plane deleted successfully')
@@ -437,8 +469,8 @@ def show_all_registeredusers(request):
 #return the information for a single registereduser, by entering its privatekey (pk)
 @api_view(['GET'])
 def show_registereduser(request, pk):
-    registereduser = RegisteredUser.objects.get(id=pk)
-    serializer = RegisteredUserSerializer(flight, many=False)
+    registereduser = RegisteredUser.objects.get(user_id=pk)
+    serializer = RegisteredUserSerializer(registereduser, many=False)
     return Response(serializer.data)
 
 #create a new registereduser
@@ -452,7 +484,7 @@ def create_registereduser(request):
 #Update an existing registereduser
 @api_view(['POST'])
 def update_registereduser(request, pk):
-    registereduser = RegisteredUse.objects.get(id=pk)
+    registereduser = RegisteredUse.objects.get(user_id=pk)
     serializer = RegisteredUserSerializer(instance = registereduser, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -462,7 +494,7 @@ def update_registereduser(request, pk):
 #delete an existing registereduser
 @api_view(['DELETE'])
 def delete_registereduser(request, pk):
-    registereduser = RegisteredUser.objects.get(id=pk)
+    registereduser = RegisteredUser.objects.get(user_id=pk)
     registereduser.delete()
 
     return Response('Registed User deleted successfully')
