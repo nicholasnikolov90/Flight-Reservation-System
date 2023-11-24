@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS ENSF614FinalProject;
 create database ENSF614FinalProject;
 use ENSF614FinalProject;
 
@@ -16,7 +17,7 @@ create table Flight(
     arrival_time TIME, 
     plane_ID int,
     
-    foreign key (plane_ID) references Plane(plane_ID)
+    foreign key (plane_ID) references Plane(plane_ID) ON DELETE CASCADE
 );
 
 create table Seat(
@@ -27,7 +28,7 @@ create table Seat(
     availability boolean,
     price decimal(5,2),
     
-    foreign key (flight_ID) references Flight(flight_ID)
+    foreign key (flight_ID) references Flight(flight_ID) ON DELETE CASCADE
 );
 
 create table User(
@@ -35,8 +36,8 @@ create table User(
     seat_ID int,
     flight_ID int,
     
-    foreign key (seat_ID) references Seat(seat_ID),
-    foreign key (flight_ID) references Flight(flight_ID)
+    foreign key (seat_ID) references Seat(seat_ID) ON DELETE CASCADE,
+    foreign key (flight_ID) references Flight(flight_ID) ON DELETE CASCADE
 );
 
 create table registeredUser(
@@ -45,7 +46,7 @@ create table registeredUser(
     last_name char(20),
     address char(20),
     
-    foreign key (user_ID) references User(user_ID)
+    foreign key (user_ID) references User(user_ID) ON DELETE CASCADE
 );
 
 create table Crew(
@@ -54,7 +55,7 @@ create table Crew(
     last_name char(30),
     flight_ID int,
     
-    foreign key (flight_ID) references Flight(flight_ID)
+    foreign key (flight_ID) references Flight(flight_ID) ON DELETE CASCADE
 );
 
 create table Booking(
@@ -63,8 +64,8 @@ create table Booking(
     flight_ID int, 
     insurance boolean,
     
-    foreign key (user_ID) references User(user_ID),
-    foreign key (flight_ID) references Flight(flight_ID)
+    foreign key (user_ID) references User(user_ID) ON DELETE CASCADE,
+    foreign key (flight_ID) references Flight(flight_ID) ON DELETE CASCADE
 );
 
 INSERT INTO Plane (plane_model, seating_capacity) VALUES
