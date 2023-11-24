@@ -1,62 +1,88 @@
-"""from django.db import models
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+from django.db import models
 
-class Seat(models.Model):
-    flight_ID = models.ForeignKey('Flight', on_delete=models.CASCADE)
-    seat_number = models.IntegerField()
-    seat_type = models.CharField(max_length = 1) #B = business, O = Ordinary, C = Comfort
-    availability = models.BooleanField()
-    price = models.DecimalField(max_digits=5, decimal_places=2)
 
-    def __int__ (self):
-        return "Seat Number: " + self.seat_number
+class Booking(models.Model):
+    booking_id = models.AutoField(db_column='booking_ID', primary_key=True)  # Field name made lowercase.
+    user = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_ID', blank=True, null=True)  # Field name made lowercase.
+    flight = models.ForeignKey('Flight', on_delete=models.CASCADE, db_column='flight_ID', blank=True, null=True)  # Field name made lowercase.
+    insurance = models.IntegerField(blank=True, null=True)
 
-class User(models.Model):
-    seat_ID = models.ForeignKey('Seat', on_delete=models.CASCADE)
-    flight_ID = models.ForeignKey('Flight', on_delete=models.CASCADE)
+    class Meta:
+        managed = False
+        db_table = 'Booking'
 
-    def __str__ (self):
-        return "User ID: " + self.pk
 
-class RegisteredUser(User):
-    first_name = models.CharField(max_length = 20)
-    last_name = models.CharField(max_length = 20)
-    address = models.CharField(max_length = 20)
+class Crew(models.Model):
+    crew_id = models.AutoField(db_column='crew_ID', primary_key=True)  # Field name made lowercase.
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
+    flight = models.ForeignKey('Flight', on_delete=models.CASCADE, db_column='flight_ID', blank=True, null=True)  # Field name made lowercase.
 
-    def __str__(self):
-        return self.first_name + " " + self.last_name
+    class Meta:
+        managed = False
+        db_table = 'Crew'
+
 
 class Flight(models.Model):
-    origin = models.CharField(max_length = 3) #code for the departure airport
-    destination = models.CharField(max_length = 3) #code for the arrival airport
-    date = models.DateField(auto_now=False, auto_now_add=False) #date of departure
-    departure_time = models.TimeField(auto_now=False, auto_now_add=False) #time of departure
-    arrival_time = models.TimeField(auto_now=False, auto_now_add=False) #time of arrival
-    plane_ID = models.ForeignKey('Plane', on_delete=models.CASCADE) 
+    flight_id = models.AutoField(db_column='flight_ID', primary_key=True)  # Field name made lowercase.
+    origin = models.CharField(max_length=3, blank=True, null=True)
+    destination = models.CharField(max_length=3, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
+    departure_time = models.TimeField(blank=True, null=True)
+    arrival_time = models.TimeField(blank=True, null=True)
+    plane = models.ForeignKey('Plane', on_delete=models.CASCADE, db_column='plane_ID', blank=True, null=True)  # Field name made lowercase.
 
-    #This displays the primary key in the django portal
-    def __int__(self):
-        return "Flight ID: " + self.pk
+    class Meta:
+        managed = False
+        db_table = 'Flight'
 
 
 class Plane(models.Model):
-    plane_model = models.CharField(max_length=50)
-    seating_capacity = models.CharField(max_length=50)
+    plane_id = models.AutoField(db_column='plane_ID', primary_key=True)  # Field name made lowercase.
+    plane_model = models.CharField(max_length=50, blank=True, null=True)
+    seating_capacity = models.CharField(max_length=50, blank=True, null=True)
 
-    def __str__(self):
-        return self.plane_model
+    class Meta:
+        managed = False
+        db_table = 'Plane'
 
-class Crew(models.Model):
-    first_name = models.CharField(max_length = 30)
-    last_name = models.CharField(max_length = 30)
-    flight_ID = models.ForeignKey('Flight', on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.first_name + " " + self.last_name
+class Seat(models.Model):
+    seat_id = models.AutoField(db_column='seat_ID', primary_key=True)  # Field name made lowercase.
+    flight = models.ForeignKey(Flight, on_delete=models.CASCADE, db_column='flight_ID', blank=True, null=True)  # Field name made lowercase.
+    seat_number = models.IntegerField(blank=True, null=True)
+    seat_type = models.CharField(max_length=1, blank=True, null=True)
+    availability = models.IntegerField(blank=True, null=True)
+    price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
-class Booking(models.Model):
-    user_ID = models.ForeignKey('User', on_delete=models.CASCADE)
-    flight_ID = models.ForeignKey('Flight', on_delete=models.CASCADE)
-    insurance = models.BooleanField() #1 if insurance was purchase, 0 if no insurance was purchased
+    class Meta:
+        managed = False
+        db_table = 'Seat'
 
-    def __str__(self):
-        return "Booking ID: " + self.pk"""
+
+class User(models.Model):
+    user_id = models.AutoField(db_column='user_ID', primary_key=True)  # Field name made lowercase.
+    seat = models.ForeignKey(Seat, on_delete=models.CASCADE, db_column='seat_ID', blank=True, null=True)  # Field name made lowercase.
+    flight = models.ForeignKey(Flight, on_delete=models.CASCADE, db_column='flight_ID', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'User'
+
+
+class RegisteredUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, db_column='user_ID', primary_key=True)  # Field name made lowercase.
+    first_name = models.CharField(max_length=20, blank=True, null=True)
+    last_name = models.CharField(max_length=20, blank=True, null=True)
+    address = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'registeredUser'

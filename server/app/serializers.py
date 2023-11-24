@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from . modelsnew import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
+from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
 
 
 

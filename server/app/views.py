@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import FlightSerializer, UserSerializer, RegisteredUserSerializer, SeatSerializer, BookingSerializer, PlaneSerializer, CrewSerializer
-from . modelsnew import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
+from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
 
 
 """ NON-ENTITY RELATED FUNCTIONS
@@ -96,9 +96,10 @@ def update_flight(request, pk):
     return Response(serializer.data)
 
 #delete an existing flight
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def delete_flight(request, pk):
     flight = Flight.objects.get(flight_id=pk)
+
     flight.delete()
 
     return Response('Flight deleted successfully')
@@ -163,7 +164,7 @@ def update_user(request, pk):
     return Response(serializer.data)
 
 #delete an existing user
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def delete_user(request, pk):
     user = User.objects.get(user_id=pk)
     user.delete()
@@ -229,7 +230,7 @@ def update_seat(request, pk):
     return Response(serializer.data)
 
 #delete an existing seat
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def delete_seat(request, pk):
     seat = Seat.objects.get(seat_id=pk)
     seat.delete()
@@ -295,7 +296,7 @@ def update_booking(request, pk):
     return Response(serializer.data)
 
 #delete an existing booking
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def delete_booking(request, pk):
     booking = Booking.objects.get(booking_id=pk)
     booking.delete()
@@ -361,7 +362,7 @@ def update_crew(request, pk):
     return Response(serializer.data)
 
 #delete an existing crew
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def delete_crew(request, pk):
     crew = Crew.objects.get(crew_id=pk)
     crew.delete()
@@ -372,7 +373,7 @@ def delete_crew(request, pk):
 PLANE VIEWS
 
 FUNCTIONS:
-flight_overview - shows which URL's are dedicated to planes
+plane_overview - shows which URL's are dedicated to planes
 show_all_planes - shows a list of all planes in the database (returns ALL info for ALL planes)
 show_plane - shows info for a single plane
 create_plane - add a new plane to the database
@@ -426,7 +427,7 @@ def update_plane(request, pk):
     return Response(serializer.data)
 
 #delete an existing splaneeat
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def delete_plane(request, pk):
     plane = Plane.objects.get(plane_id=pk)
     plane.delete()
@@ -438,8 +439,8 @@ def delete_plane(request, pk):
 REGISTERED USER VIEWS
 
 FUNCTIONS:
-flight_overview - shows which URL's are dedicated to registeredusers
-show_all_registereduser - shows a list of all flights in the database (returns ALL info for ALL registereduser)
+registereduser_overview - shows which URL's are dedicated to registeredusers
+show_all_registereduser - shows a list of all registeredusers in the database (returns ALL info for ALL registereduser)
 show_registereduser - shows info for a single registereduser
 create_registereduser - add a new registereduser to the database
 update_registereduser - modify an existing registereduser
@@ -463,7 +464,7 @@ def registereduser_overview(request):
 @api_view(['GET'])
 def show_all_registeredusers(request):
     registeredusers = RegisteredUser.objects.all()
-    serializer = FlightSerializer(registeredusers, many=True)
+    serializer = RegisteredUserSerializer(registeredusers, many=True)
     return Response(serializer.data)
 
 #return the information for a single registereduser, by entering its privatekey (pk)
@@ -484,7 +485,7 @@ def create_registereduser(request):
 #Update an existing registereduser
 @api_view(['POST'])
 def update_registereduser(request, pk):
-    registereduser = RegisteredUse.objects.get(user_id=pk)
+    registereduser = RegisteredUser.objects.get(user_id=pk)
     serializer = RegisteredUserSerializer(instance = registereduser, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -492,7 +493,7 @@ def update_registereduser(request, pk):
     return Response(serializer.data)
 
 #delete an existing registereduser
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def delete_registereduser(request, pk):
     registereduser = RegisteredUser.objects.get(user_id=pk)
     registereduser.delete()
