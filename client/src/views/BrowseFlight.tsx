@@ -75,7 +75,6 @@ export default function BrowseFlight() {
     <ThemeProvider theme={defaultTheme}>
       <main>
         <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
             {FLIGHT_SAMPLE.map((flight) => (
               <Grid item key={flight.id} xs={12} sm={6} md={4}>
@@ -89,7 +88,6 @@ export default function BrowseFlight() {
                   <CardMedia
                     component="div"
                     sx={{
-                      // 16:9
                       pt: "56.25%",
                     }}
                     image="https://source.unsplash.com/random?wallpapers"
@@ -107,7 +105,6 @@ export default function BrowseFlight() {
                   </CardContent>
                   <CardActions>
                     <Button size="small">View</Button>
-                    {/* <Button size="small">Edit</Button> */}
                   </CardActions>
                 </Card>
               </Grid>

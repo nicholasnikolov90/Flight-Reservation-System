@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import BrowseFlight from "./views/BrowseFlight";
 import Home from "./views/Home";
+import Checkout from "./views/Payment/Checkout";
 import SeatMap from "./views/SeatMap";
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/seatmap",
     element: <SeatMap />,
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />,
   },
 ]);
 

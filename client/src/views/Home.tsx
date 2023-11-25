@@ -23,6 +23,7 @@ const Home = () => {
       <h1>Home</h1>
       <Button onClick={() => navigate("/browseflight")}> Get started! </Button>
       <Button onClick={() => navigate("/seatmap")}> Seat map </Button>
+      <Button onClick={() => navigate("/checkout")}> Checkout </Button>
     </div>
   );
 };
