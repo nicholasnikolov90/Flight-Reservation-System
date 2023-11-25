@@ -24,6 +24,7 @@ const Home = () => {
       <Button onClick={() => navigate("/browseflight")}> Get started! </Button>
       <Button onClick={() => navigate("/seatmap")}> Seat map </Button>
       <Button onClick={() => navigate("/checkout")}> Checkout </Button>
+      <Button onClick={() => navigate("/cancelflight")}> Cancel Flight </Button>
     </div>
   );
 };

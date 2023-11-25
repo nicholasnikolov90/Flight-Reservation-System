@@ -67,10 +67,9 @@ const FLIGHT_SAMPLE = [
   },
 ];
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function BrowseFlight() {
+const BrowseFlight = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <main>
@@ -114,14 +113,6 @@ export default function BrowseFlight() {
       </main>
     </ThemeProvider>
   );
-}
+};
 
-// const BrowseFlight = () => {
-//   return (
-//     <div>
-//       <h1>Browse Flight</h1>
-//     </div>
-//   );
-// };
-
-// export default BrowseFlight;
+export default BrowseFlight;

@@ -7,6 +7,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import BrowseFlight from "./views/BrowseFlight";
+import CancelFlight from "./views/CancelFlight";
 import Home from "./views/Home";
 import Checkout from "./views/Payment/Checkout";
 import SeatMap from "./views/SeatMap";
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/checkout",
     element: <Checkout />,
+  },
+  {
+    path: "cancelflight",
+    element: <CancelFlight />,
   },
 ]);
 
