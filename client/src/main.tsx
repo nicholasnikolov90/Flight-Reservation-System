@@ -11,6 +11,8 @@ import CancelFlight from "./views/CancelFlight";
 import Home from "./views/Home";
 import Checkout from "./views/Payment/Checkout";
 import SeatMap from "./views/SeatMap";
+import Login from "./views/authentication/Login";
+import SignUp from "./views/authentication/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -30,8 +32,16 @@ const router = createBrowserRouter([
     element: <Checkout />,
   },
   {
-    path: "cancelflight",
+    path: "/cancelflight",
     element: <CancelFlight />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
 ]);
 

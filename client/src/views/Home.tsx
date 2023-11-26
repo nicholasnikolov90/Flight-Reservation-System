@@ -8,8 +8,8 @@ const Home = () => {
     <div>
       <AppBar
         style={{
-          flexGrow: 1,
-          // backgroundColor: "#242424",
+          justifyContent: "flex-end",
+          flexDirection: "row",
           backdropFilter: "none",
           boxShadow: "none",
           paddingTop: "1rem",
@@ -17,8 +17,14 @@ const Home = () => {
         }}
         position="fixed"
       >
-        {" "}
-        HEADING{" "}
+        <Button sx={{ color: "white" }} onClick={() => navigate("/login")}>
+          {" "}
+          Login{" "}
+        </Button>
+        <Button sx={{ color: "white" }} onClick={() => navigate("/signup")}>
+          {" "}
+          Sign Up{" "}
+        </Button>
       </AppBar>
       <h1>Home</h1>
       <Button onClick={() => navigate("/browseflight")}> Get started! </Button>
