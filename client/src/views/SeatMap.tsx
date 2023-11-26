@@ -33,6 +33,7 @@ const SeatMap = () => {
           <Grid item key={seat.number} xs={3}>
             {" "}
             <Button
+              variant="outlined"
               sx={{ color: seat.isReserved ? "red" : "blue" }}
               onClick={() => handleSelect(seat.number)}
             >
