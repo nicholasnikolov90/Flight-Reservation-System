@@ -1,10 +1,21 @@
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirm] = useState("");
+  const { signup } = useContext(AuthContext);
+  const _onSignupPressed = () => {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    signup();
+  };
+
   return (
     <div>
       <h1>Sign Up</h1>
@@ -49,7 +60,9 @@ const SignUp = () => {
         type="password"
         fullWidth
       />
-      <Button variant="outlined">Sign Up</Button>
+      <Button onClick={_onSignupPressed} variant="outlined">
+        Sign Up
+      </Button>
     </div>
   );
 };

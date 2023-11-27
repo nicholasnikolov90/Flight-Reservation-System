@@ -1,10 +1,17 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
+
+  const _onLoginPressed = () => {
+    login();
+  };
+
   return (
     <div>
       <h1>Login</h1>
@@ -36,7 +43,9 @@ const Login = () => {
         fullWidth
         type="password"
       />
-      <Button variant="outlined">Login</Button>
+      <Button variant="outlined" onClick={_onLoginPressed}>
+        Login
+      </Button>
     </div>
   );
 };

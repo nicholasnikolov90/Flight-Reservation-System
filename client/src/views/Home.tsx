@@ -1,9 +1,12 @@
-import { AppBar, Button } from "@mui/material";
+import { AppBar, Button, Typography } from "@mui/material";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import "../styles/Home.css";
 
 const Home = () => {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   return (
     <div>
       <AppBar
@@ -17,14 +20,20 @@ const Home = () => {
         }}
         position="fixed"
       >
-        <Button sx={{ color: "white" }} onClick={() => navigate("/login")}>
-          {" "}
-          Login{" "}
-        </Button>
-        <Button sx={{ color: "white" }} onClick={() => navigate("/signup")}>
-          {" "}
-          Sign Up{" "}
-        </Button>
+        {user.isAuthenticated ? (
+          <Typography sx={{ paddingRight: 2 }}>User ID: {user.id}</Typography>
+        ) : (
+          <>
+            <Button sx={{ color: "white" }} onClick={() => navigate("/login")}>
+              {" "}
+              Login{" "}
+            </Button>
+            <Button sx={{ color: "white" }} onClick={() => navigate("/signup")}>
+              {" "}
+              Sign Up{" "}
+            </Button>
+          </>
+        )}
       </AppBar>
       <h1>Home</h1>
       <Button onClick={() => navigate("/browseflight")}> Get started! </Button>
