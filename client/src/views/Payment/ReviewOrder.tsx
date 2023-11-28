@@ -1,35 +1,14 @@
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Seat } from "../SeatMap";
 
-const payments = [
-  {
-    id: "0123890",
-    detail: "YYC - YVR",
-    cost: 100,
-  },
-  {
-    id: "0123890",
-    detail: "YYC - YVR",
-    cost: 100,
-  },
-  {
-    id: "0123890",
-    detail: "YYC - YVR",
-    cost: 100,
-  },
-  {
-    id: "0123890",
-    detail: "YYC - YVR",
-    cost: 100,
-  },
-];
-
-const ReviewOrder = () => {
+const ReviewOrder = ({ seats }: { seats: Seat[] }) => {
   return (
     <List disablePadding>
-      {payments.map((payment) => (
-        <ListItem key={payment.id} sx={{ py: 1, px: 0 }}>
-          <ListItemText primary={payment.id} secondary={payment.detail} />
-          <Typography>${payment.cost}</Typography>
+      {seats.map((seat) => (
+        <ListItem key={seat.id} sx={{ py: 1, px: 0 }}>
+          {/* <ListItemText primary={seat.id} secondary={seat.detail} /> */}
+          Seat ID: <ListItemText primary={seat.id} />
+          <Typography>${seat.price}</Typography>
         </ListItem>
       ))}
     </List>

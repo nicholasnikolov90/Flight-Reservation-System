@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 // Template from https://mui.com/material-ui/getting-started/templates/album/
 
@@ -70,6 +71,7 @@ const FLIGHT_SAMPLE = [
 const defaultTheme = createTheme();
 
 const BrowseFlight = () => {
+  const navigate = useNavigate();
   return (
     <ThemeProvider theme={defaultTheme}>
       <main>
@@ -103,7 +105,16 @@ const BrowseFlight = () => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
+                    <Button
+                      onClick={() =>
+                        navigate("/seatmap", {
+                          state: { flightId: flight.id },
+                        })
+                      }
+                      size="small"
+                    >
+                      View
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>

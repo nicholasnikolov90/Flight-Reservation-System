@@ -4,6 +4,8 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Seat } from "../SeatMap";
 import InformationForm from "./InformationForm";
 import PaymentForm from "./PaymentForm";
 import ReviewOrder from "./ReviewOrder";
@@ -26,7 +28,9 @@ export type Card = {
   cvv: string;
 };
 
-export default function Checkout() {
+// Template reference: https://github.com/mui/material-ui/tree/v5.14.18/docs/data/material/getting-started/templates/checkout
+
+const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [information, setInformation] = useState<Information>({
     name: "",
@@ -42,6 +46,8 @@ export default function Checkout() {
     expDate: "",
     cvv: "",
   });
+  const location = useLocation();
+  const seats: Seat[] = location.state.seats;
 
   function getStepContent(step: number) {
     switch (step) {
@@ -55,7 +61,7 @@ export default function Checkout() {
       case 1:
         return <PaymentForm card={card} setCard={setCard} />;
       case 2:
-        return <ReviewOrder />;
+        return <ReviewOrder seats={seats} />;
       default:
         throw new Error("Unknown step");
     }
@@ -72,6 +78,7 @@ export default function Checkout() {
   const handleSubmit = () => {
     setActiveStep(activeStep + 1);
     // TODO: Implement send email
+    // TODO: Write seat to database
   };
 
   return (
@@ -121,13 +128,6 @@ export default function Checkout() {
                     Next
                   </Button>
                 )}
-                {/* <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{ mt: 3, ml: 1 }}
-                >
-                  {activeStep === STEPS.length - 1 ? "Place order" : "Next"}
-                </Button> */}
               </Box>
             </React.Fragment>
           )}
@@ -135,4 +135,6 @@ export default function Checkout() {
       </Container>
     </>
   );
-}
+};
+
+export default Checkout;
