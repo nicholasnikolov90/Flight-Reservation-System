@@ -4,7 +4,8 @@ import { useState } from "react";
 const CancelFlight = () => {
   const [bookingId, setBookingId] = useState<string>("");
   const handleCancel = () => {
-    console.log("cancel flight");
+    // TODO: Await cancel flight api
+    alert(`Flight ${bookingId} has been cancelled`);
   };
   return (
     <div>
