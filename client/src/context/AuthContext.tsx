@@ -3,9 +3,11 @@ import { createContext, useState } from "react";
 export type User = {
   id: string | null;
   isAuthenticated: boolean;
-  promotions: string[];
-  activePromotion: string;
+  promotions: Promotion[];
+  activePromotion: Promotion | "";
 };
+
+export type Promotion = "10OFF" | "20OFF" | "30OFF";
 
 interface AuthProps {
   login: () => void;
