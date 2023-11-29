@@ -6,6 +6,7 @@ import BrowseFlight from "./views/BrowseFlight";
 import CancelFlight from "./views/CancelFlight";
 import Home from "./views/Home";
 import Checkout from "./views/Payment/Checkout";
+import Promotions from "./views/Promotions";
 import SeatMap from "./views/SeatMap";
 import Login from "./views/authentication/Login";
 import SignUp from "./views/authentication/SignUp";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/promotions",
+    element: <Promotions />,
   },
 ]);
 

@@ -21,7 +21,21 @@ const Home = () => {
         position="fixed"
       >
         {user.isAuthenticated ? (
-          <Typography sx={{ paddingRight: 2 }}>User ID: {user.id}</Typography>
+          <>
+            <Button
+              sx={{ color: "white" }}
+              onClick={() => navigate("/promotions")}
+            >
+              Promotions
+            </Button>
+            <Typography
+              sx={{
+                paddingRight: 2,
+              }}
+            >
+              User ID: {user.id}
+            </Typography>
+          </>
         ) : (
           <>
             <Button sx={{ color: "white" }} onClick={() => navigate("/login")}>
