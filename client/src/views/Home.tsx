@@ -6,7 +6,7 @@ import "../styles/Home.css";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   return (
     <div>
       <AppBar
@@ -35,6 +35,9 @@ const Home = () => {
             >
               User ID: {user.id}
             </Typography>
+            <Button sx={{ color: "white" }} onClick={() => logout()}>
+              Logout
+            </Button>
           </>
         ) : (
           <>
