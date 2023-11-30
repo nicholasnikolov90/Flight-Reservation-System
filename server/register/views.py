@@ -22,7 +22,6 @@ def login_registered_user(request):
             return JsonResponse(status=200)
         else: 
             pass
-
     else: 
         return render(request, 'authenticate/login.html', {})
 
