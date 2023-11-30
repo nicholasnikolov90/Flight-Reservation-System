@@ -10,16 +10,28 @@ from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking
 """ NON-ENTITY RELATED FUNCTIONS
 These functions satisy some of the other project requirements that aren't just CRUD"""
 
+#Make payment
+@api_view(['POST'])
+def make_payment(request, pk):
+    user = User.objects.get(user_id=pk)
+    serializer = UserSerializer(instance = user, data=request.data)
+    combined = {}
 
-#user is able to make payment
-#@api_view(['GET'])
-#def make_payment(request, pk1, pk2):
-#    flight = Flight.objects.get(id=pk)
+    if serializer.is_valid():
+        new_flight_id = request.data.get('flight_ID') 
 
-
-#registered user will receive their receipt by email
-#@api_view(['POST'])
-#def receive_receipt(request, pk):
+        #returns true if a new flight ID is assigned to the user, this assumes the user paid for the ticket if the new flight is assigned to them.
+        if user.flight_id != new_flight_id:
+                combined = {
+                'Payment': 'Payment was successful!',
+            }
+        else: 
+            combined = {
+                'Payment': 'No payment was made'
+            }
+         
+        serializer.save()
+    return Response(combined)
 
 #returns all the crew members for a specific flight (pk = flight_id)
 @api_view(['GET'])
@@ -385,7 +397,7 @@ delete_plane - delete an existing plane
 @api_view(['GET'])
 #common views:
 def plane_overview(request):
-    user_urls = {
+    plane_urls = {
         'List': '/plane-list/',
         'Detail': '/plane-detail/<int:id>',
         'Create': '/plane-create', 

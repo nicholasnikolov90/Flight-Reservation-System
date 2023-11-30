@@ -10,10 +10,7 @@ class FlightSerializer(serializers.ModelSerializer):
         model = Flight
         fields = '__all__'
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
+
 
 class RegisteredUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,7 +21,10 @@ class SeatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seat
         fields = '__all__'
-
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking

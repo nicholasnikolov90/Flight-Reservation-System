@@ -20,6 +20,8 @@ urlpatterns = [
     path('user-create/', views.create_user, name='user-create'), #adds a new user to the database
     path('user-update/<int:pk>', views.update_user, name='user-update'), #modifies an existing user in the database
     path('user-delete/<int:pk>', views.delete_user, name='user-delete'), #deletes an existing user in the database
+    path('user-payment/<int:pk>', views.make_payment, name='user-payment'), #user makes a payment
+
 
     #SEAT URLS
     path('seat-list/', views.show_all_seats, name='seat-list'), #URL for a list of all seats
