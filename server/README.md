@@ -36,6 +36,11 @@ Other requirements
 - is implemented with the models.py, views.py (this is actually the controller in django), and the view is implemented by the react front end.
 
 
+How the code fits the design:
+1. foreign key relationships in django are the method of implementing object oriented aggregation
+2. The Registered USer is an extension of User (Since it has the oneToOneField)
+3. 
+
 
 
 
