@@ -7,6 +7,8 @@ urlpatterns = [
     path('crew-on-flight/<int:pk>', views.crew_on_flight, name='crew-on-flight'), #URL to return the crew on a specific flight
     path('seats-on-flight/<int:pk>', views.seats_on_flight, name='seats-on-flight'), #URL to return all seats on a specific flight
     path('login/', views.login, name='login'), #checks credentials of registerd user
+    path('email/', views.send_email, name='send_email'), #sends an email receipt
+
 
     #flight URLS
     path('flight-list/', views.show_all_flights, name='flight-list'), #URL for a list of all flights

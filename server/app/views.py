@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
 from django.test import RequestFactory
 from .serializers import FlightSerializer, UserSerializer, RegisteredUserSerializer, SeatSerializer, BookingSerializer, PlaneSerializer, CrewSerializer
 from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
@@ -12,6 +13,17 @@ from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking
 
 """ NON-ENTITY RELATED FUNCTIONS
 These functions satisy some of the other project requirements that aren't just CRUD"""
+
+@api_view(['POST'])
+def send_email(request):
+    subject = 'Flight Receipt'
+    message = 'Congratulations on your purchase, this is your proof of receipt'
+    from_email = 'flight_reservation@gmail.com'
+    recipient = ['nicknikolov7@gmail.com']
+
+    send_mail(subject, message, from_email, recipient)
+
+    return Response('Email sent successfully!')
 
 
 @api_view(['POST'])
