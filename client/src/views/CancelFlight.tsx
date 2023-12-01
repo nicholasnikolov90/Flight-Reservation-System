@@ -3,9 +3,18 @@ import { useState } from "react";
 
 const CancelFlight = () => {
   const [bookingId, setBookingId] = useState<string>("");
-  const handleCancel = () => {
-    // TODO: Await cancel flight api
-    alert(`Flight ${bookingId} has been cancelled`);
+  const handleCancel = async () => {
+    const res = await fetch(
+      `http://127.0.0.1:8000/app/booking-delete/${bookingId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (res.ok) {
+      alert(`Flight ${bookingId} has been cancelled`);
+    } else {
+      alert(`Flight ${bookingId} could not be cancelled`);
+    }
   };
   return (
     <div>
