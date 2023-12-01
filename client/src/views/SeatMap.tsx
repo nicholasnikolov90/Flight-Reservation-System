@@ -27,7 +27,9 @@ const SeatMap = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://127.0.0.1:8000/app/seats-on-flight/1");
+      const res = await fetch(
+        `http://127.0.0.1:8000/app/seats-on-flight/${flightId}`
+      );
       const sqlSeats: MySQLSeat[] = await res.json();
       const newSeats = sqlSeats.map((sqlSeat) => {
         return {
