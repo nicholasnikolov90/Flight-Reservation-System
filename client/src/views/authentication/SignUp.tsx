@@ -5,15 +5,19 @@ import { AuthContext } from "../../context/AuthContext";
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirm] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [address, setAddress] = useState("");
+
   const { signup } = useContext(AuthContext);
   const _onSignupPressed = () => {
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
-
-    signup();
+    signup({ username, password, firstName, lastName, address });
+    // signup();
   };
 
   return (
@@ -52,12 +56,51 @@ const SignUp = () => {
         InputLabelProps={{ style: { color: "white" } }}
         value={confirmPassword}
         onChange={(e) => {
-          setConfirm(e.target.value);
+          setConfirmPassword(e.target.value);
         }}
         id="confirmPassword"
         label="confirmPassword"
         variant="standard"
         type="password"
+        fullWidth
+      />
+      <TextField
+        required
+        inputProps={{ style: { color: "white" } }}
+        InputLabelProps={{ style: { color: "white" } }}
+        value={firstName}
+        onChange={(e) => {
+          setFirstName(e.target.value);
+        }}
+        id="firstName"
+        label="firstName"
+        variant="standard"
+        fullWidth
+      />
+      <TextField
+        required
+        inputProps={{ style: { color: "white" } }}
+        InputLabelProps={{ style: { color: "white" } }}
+        value={lastName}
+        onChange={(e) => {
+          setLastName(e.target.value);
+        }}
+        id="lastName"
+        label="lastName"
+        variant="standard"
+        fullWidth
+      />
+      <TextField
+        required
+        inputProps={{ style: { color: "white" } }}
+        InputLabelProps={{ style: { color: "white" } }}
+        value={address}
+        onChange={(e) => {
+          setAddress(e.target.value);
+        }}
+        id="address"
+        label="address"
+        variant="standard"
         fullWidth
       />
       <Button onClick={_onSignupPressed} variant="outlined">
