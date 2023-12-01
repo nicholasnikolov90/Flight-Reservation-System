@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.test import RequestFactory
 from .serializers import FlightSerializer, UserSerializer, RegisteredUserSerializer, SeatSerializer, BookingSerializer, PlaneSerializer, CrewSerializer
 from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
 
@@ -166,7 +167,12 @@ def show_user(request, pk):
 #create a new user
 @api_view(['POST'])
 def create_user(request):
-    serializer = UserSerializer(data=request.data)
+    if request is None:
+        user_data = {'seat': None, 'flight': None}  # Add all the fields from your serializer
+    else:
+        user_data = request.data
+
+    serializer = UserSerializer(data = user_data)
     if serializer.is_valid():
         serializer.save()
 
@@ -494,9 +500,16 @@ def show_registereduser(request, pk):
     return Response(serializer.data)
 
 #create a new registereduser
+factory = RequestFactory()
+null_request = factory.post('/user-create', data=None)  # Adjust the path as needed
+
 @api_view(['POST'])
 def create_registereduser(request):
-    serializer = RegisteredUserSerializer(data=request.data)
+    user_response_data = create_user(null_request).data
+
+    serializer_data = {**request.data, 'user': user_response_data.get('user_id')}  # Add user_id to the data
+
+    serializer = RegisteredUserSerializer(data=serializer_data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
