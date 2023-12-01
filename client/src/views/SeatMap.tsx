@@ -5,15 +5,24 @@ export type Seat = {
   price: number;
 };
 
+type MySQLSeat = {
+  seat_id: number;
+  seat_number: number;
+  seat_type: string;
+  availability: number;
+  price: number;
+  flight: number;
+};
+
 const SEATS: Seat[] = [];
 
 for (let i = 1; i <= 48; i++) {
-  SEATS.push({ id: i, isReserved: false, isSelected: false, price: i });
+  SEATS.push({ id: i, isReserved: true, isSelected: false, price: i });
 }
 
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const SeatMap = () => {
@@ -21,6 +30,23 @@ const SeatMap = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const flightId = location.state.flightId;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://127.0.0.1:8000/app/seats-on-flight/1");
+      const sqlSeats: MySQLSeat[] = await res.json();
+      const newSeats = sqlSeats.map((sqlSeat) => {
+        return {
+          id: sqlSeat.seat_number,
+          isReserved: sqlSeat.availability === 1 ? false : true,
+          isSelected: false,
+          price: sqlSeat.price,
+        };
+      });
+      setSeats(newSeats);
+    };
+    fetchData();
+  }, []);
 
   const handleSelect = (num: number) => {
     const newSeats = seats.map((seat) => {
