@@ -82,6 +82,8 @@ class RegisteredUser(models.Model):
     first_name = models.CharField(max_length=20, blank=True, null=True)
     last_name = models.CharField(max_length=20, blank=True, null=True)
     address = models.CharField(max_length=20, blank=True, null=True)
+    user_name = models.CharField(max_length=20, blank=True, null=True)
+    pass_word = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
         managed = False
