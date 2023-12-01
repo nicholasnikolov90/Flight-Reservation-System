@@ -7,77 +7,64 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Template from https://mui.com/material-ui/getting-started/templates/album/
 
-const FLIGHT_SAMPLE = [
-  {
-    id: 1,
-    origin: "YYC",
-    destination: "YVR",
-    date: "2021-10-10",
-    departureTime: "10:00:00",
-    arrivalTime: "12:00:00",
-    planeID: 1,
-  },
-  {
-    id: 1,
-    origin: "YYC",
-    destination: "YVR",
-    date: "2021-10-10",
-    departureTime: "10:00:00",
-    arrivalTime: "12:00:00",
-    planeID: 1,
-  },
-  {
-    id: 1,
-    origin: "YYC",
-    destination: "YVR",
-    date: "2021-10-10",
-    departureTime: "10:00:00",
-    arrivalTime: "12:00:00",
-    planeID: 1,
-  },
-  {
-    id: 1,
-    origin: "YYC",
-    destination: "YVR",
-    date: "2021-10-10",
-    departureTime: "10:00:00",
-    arrivalTime: "12:00:00",
-    planeID: 1,
-  },
-  {
-    id: 1,
-    origin: "YYC",
-    destination: "YVR",
-    date: "2021-10-10",
-    departureTime: "10:00:00",
-    arrivalTime: "12:00:00",
-    planeID: 1,
-  },
-  {
-    id: 1,
-    origin: "YYC",
-    destination: "YVR",
-    date: "2021-10-10",
-    departureTime: "10:00:00",
-    arrivalTime: "12:00:00",
-    planeID: 1,
-  },
-];
+type MySQLFlight = {
+  flight_id: number;
+  origin: string;
+  destination: string;
+  date: string;
+  departure_time: string;
+  arrival_time: string;
+  plane: number;
+};
+
+type Flight = {
+  id: number;
+  origin: string;
+  destination: string;
+  date: string;
+  departureTime: string;
+  arrivalTime: string;
+  planeID: number;
+};
 
 const defaultTheme = createTheme();
 
 const BrowseFlight = () => {
   const navigate = useNavigate();
+  const [flights, setFlights] = useState<Flight[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://127.0.0.1:8000/app/flight-list/");
+      const sqlFlights: MySQLFlight[] = await res.json();
+      const newFlights: Flight[] = sqlFlights.map((sqlFlight) => {
+        return {
+          id: sqlFlight.flight_id,
+          origin: sqlFlight.origin,
+          destination: sqlFlight.destination,
+          date: sqlFlight.date,
+          departureTime: sqlFlight.departure_time,
+          arrivalTime: sqlFlight.arrival_time,
+          planeID: sqlFlight.plane,
+        };
+      });
+      setFlights(newFlights);
+      console.log(sqlFlights);
+    };
+    fetchData();
+  }, []);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <main>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {FLIGHT_SAMPLE.map((flight) => (
+            {flights.map((flight) => (
               <Grid item key={flight.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{
