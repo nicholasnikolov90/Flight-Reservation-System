@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.contrib.auth.hashers import check_password
+from django.shortcuts import get_object_or_404
 from django.test import RequestFactory
 from .serializers import FlightSerializer, UserSerializer, RegisteredUserSerializer, SeatSerializer, BookingSerializer, PlaneSerializer, CrewSerializer
 from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking 
@@ -10,6 +12,34 @@ from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking
 
 """ NON-ENTITY RELATED FUNCTIONS
 These functions satisy some of the other project requirements that aren't just CRUD"""
+
+
+@api_view(['POST'])
+def create_registereduser(request):
+    user_response_data = create_user(null_request).data
+
+    serializer_data = {**request.data, 'user': user_response_data.get('user_id')}  # Add user_id to the data
+
+    serializer = RegisteredUserSerializer(data=serializer_data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+#checks if the input username and password matches with any registered user
+@api_view(['POST'])
+def login(request):
+    user = request.data.get('user_name')
+    passw = request.data.get('pass_word')
+    registered_user = RegisteredUser.objects.filter(user_name=user).first()
+
+    if registered_user:
+        # Check each user to see if the provided password matches
+        if passw == registered_user.pass_word:
+            serializer = RegisteredUserSerializer(registered_user, many=False)
+            return Response(status=200)
+
+    return Response(status=400)
 
 #returns all seats on a single flight
 @api_view(['GET'])
@@ -56,7 +86,6 @@ def crew_on_flight(request, pk):
     }
 
     return Response(combined)
-
 
 """
 FLIGHT VIEWS
