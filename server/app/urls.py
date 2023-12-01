@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     #COMBINED URLS
     path('crew-on-flight/<int:pk>', views.crew_on_flight, name='crew-on-flight'), #URL to return the crew on a specific flight
-
+    path('seats-on-flight/<int:pk>', views.seats_on_flight, name='seats-on-flight'), #URL to return all seats on a specific flight
 
     #flight URLS
     path('flight-list/', views.show_all_flights, name='flight-list'), #URL for a list of all flights
@@ -21,7 +21,6 @@ urlpatterns = [
     path('user-update/<int:pk>', views.update_user, name='user-update'), #modifies an existing user in the database
     path('user-delete/<int:pk>', views.delete_user, name='user-delete'), #deletes an existing user in the database
     path('user-payment/<int:pk>', views.make_payment, name='user-payment'), #user makes a payment
-
 
     #SEAT URLS
     path('seat-list/', views.show_all_seats, name='seat-list'), #URL for a list of all seats

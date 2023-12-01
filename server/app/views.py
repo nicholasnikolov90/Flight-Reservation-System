@@ -10,6 +10,13 @@ from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking
 """ NON-ENTITY RELATED FUNCTIONS
 These functions satisy some of the other project requirements that aren't just CRUD"""
 
+#returns all seats on a single flight
+@api_view(['GET'])
+def seats_on_flight(request, pk):
+    seats = Seat.objects.filter(flight=pk)
+    serializer = SeatSerializer(seats, many=True)
+    return Response(serializer.data)
+
 #Make payment
 @api_view(['POST'])
 def make_payment(request, pk):
