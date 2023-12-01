@@ -14,19 +14,13 @@ type MySQLSeat = {
   flight: number;
 };
 
-const SEATS: Seat[] = [];
-
-for (let i = 1; i <= 48; i++) {
-  SEATS.push({ id: i, isReserved: true, isSelected: false, price: i });
-}
-
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const SeatMap = () => {
-  const [seats, setSeats] = useState<Seat[]>(SEATS);
+  const [seats, setSeats] = useState<Seat[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
   const flightId = location.state.flightId;
@@ -40,7 +34,7 @@ const SeatMap = () => {
           id: sqlSeat.seat_number,
           isReserved: sqlSeat.availability === 1 ? false : true,
           isSelected: false,
-          price: sqlSeat.price,
+          price: Number(sqlSeat.price),
         };
       });
       setSeats(newSeats);
