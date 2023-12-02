@@ -10,7 +10,13 @@ export type User = {
 export type Promotion = "10OFF" | "20OFF" | "30OFF";
 
 interface AuthProps {
-  login: () => void;
+  login: ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => Promise<void>;
   logout: () => void;
   signup: ({
     username,
@@ -29,7 +35,9 @@ interface AuthProps {
   setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 export const AuthContext = createContext<AuthProps>({
-  login: () => {},
+  login: ({ username, password }: { username: string; password: string }) => {
+    return Promise.resolve();
+  },
   logout: () => {},
   signup: ({
     username,
@@ -64,13 +72,42 @@ export const AuthProvider = ({ children }: any) => {
     activePromotion: "",
   });
 
-  const login = async () => {
-    setUser({
-      id: "test",
-      isAuthenticated: true,
-      promotions: ["10OFF"],
-      activePromotion: "",
+  // const login = async () => {
+  //   setUser({
+  //     id: "test",
+  //     isAuthenticated: true,
+  //     promotions: ["10OFF"],
+  //     activePromotion: "",
+  //   });
+  // };
+  const login = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    const res = await fetch("http://127.0.0.1:8000/app/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_name: username,
+        pass_word: password,
+      }),
     });
+    if (res.ok) {
+      alert(`Signed in as ${username}`);
+      setUser({
+        id: username,
+        isAuthenticated: true,
+        promotions: ["10OFF"],
+        activePromotion: "",
+      });
+    } else {
+      alert("Check username/password");
+    }
   };
 
   const logout = async () => {
@@ -82,14 +119,6 @@ export const AuthProvider = ({ children }: any) => {
     });
   };
 
-  // const signup = async () => {
-  //   setUser({
-  //     id: "test",
-  //     isAuthenticated: true,
-  //     promotions: [],
-  //     activePromotion: "",
-  //   });
-  // };
   const signup = async ({
     username,
     password,

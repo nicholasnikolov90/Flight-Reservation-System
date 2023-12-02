@@ -9,7 +9,7 @@ const Login = () => {
   const { login } = useContext(AuthContext);
 
   const _onLoginPressed = () => {
-    login();
+    login({ username, password });
   };
 
   return (
