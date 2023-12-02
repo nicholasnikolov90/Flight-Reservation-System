@@ -31,6 +31,17 @@ const InformationForm = ({
       />
       <TextField
         required
+        value={information.email}
+        onChange={(e) => {
+          setInformation({ ...information, email: e.target.value });
+        }}
+        id="email"
+        label="Email"
+        fullWidth
+        variant="standard"
+      />
+      <TextField
+        required
         value={information.address}
         onChange={(e) => {
           setInformation({ ...information, address: e.target.value });

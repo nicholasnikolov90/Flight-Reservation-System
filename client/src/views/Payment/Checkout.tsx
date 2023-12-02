@@ -15,6 +15,7 @@ const STEPS = ["Information details", "Payment details", "Review your order"];
 export type Information = {
   name: string;
   address: string;
+  email: string;
   city: string;
   province: string;
   postalcode: string;
@@ -35,6 +36,7 @@ const Checkout = () => {
   const [information, setInformation] = useState<Information>({
     name: "",
     address: "",
+    email: "",
     city: "",
     province: "",
     postalcode: "",
