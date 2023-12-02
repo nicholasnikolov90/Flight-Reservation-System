@@ -36,6 +36,8 @@ urlpatterns = [
     path('booking-list/', views.show_all_bookings, name='booking-list'), #URL for a list of all bookings
     path('booking-detail/<int:pk>/', views.show_booking, name='seat-detail'), #URL for a single booking
     path('booking-create/<int:pk>', views.create_booking, name='booking-create'), #adds a new booking to the database
+    path('booking-create-unreg/<int:pk>', views.create_booking_unreg, name='booking-create-unreg'), #adds a new booking to the database for an unregistered user
+
     path('booking-update/<int:pk>', views.update_booking, name='booking-update'), #modifies an existing booking in the database
     path('booking-delete/<int:pk>', views.delete_booking, name='booking-delete'), #deletes an existing booking in the database
 

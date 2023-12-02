@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpRequest
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import check_password
@@ -13,7 +14,55 @@ from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking
 
 """ NON-ENTITY RELATED FUNCTIONS
 These functions satisy some of the other project requirements that aren't just CRUD"""
+#create a new booking for an unregistered user
+@api_view(['POST'])
+def create_booking_unreg(request, pk):
+    factory = RequestFactory()
 
+    custom_data = {
+        "seat": pk,
+        "flight": request.data.get('flight')
+    }
+
+    custom_request = factory.post('/user-create', data=custom_data) 
+
+    user_response = create_user(custom_request)
+    user_response_data = user_response.data
+
+    custom = {
+        "user": user_response_data.get('user_id'),
+        "flight": request.data.get('flight'),
+        "insurance": request.data.get('insurance'),
+    }
+
+    serializer = BookingSerializer(data=custom)
+
+    if serializer.is_valid():
+        serializer.save()
+        seat = Seat.objects.filter(seat_id=pk).update(availability=0)
+
+    return Response(serializer.data)
+
+
+#create a new booking for a registered user
+@api_view(['POST'])
+def create_booking(request, pk):
+    user = request.data.get('user_name')
+    userid = RegisteredUser.objects.filter(user_name=user).first()
+
+    custom = {
+        "user": userid.user_id,
+        "flight": request.data.get('flight'),
+        "insurance": request.data.get('insurance'),
+    }
+
+    serializer = BookingSerializer(data=custom)
+
+    if serializer.is_valid():
+        serializer.save()
+        seat = Seat.objects.filter(seat_id=pk).update(availability=0)
+
+    return Response(serializer.data)
 
 
 #sends an email receipt to the user
@@ -32,8 +81,13 @@ def send_email(request):
     return Response('Email sent successfully!')
 
 #adds the username and password of the registered user to the database
+#create a new registereduser
+
+
 @api_view(['POST'])
 def create_registereduser(request):
+    factory = RequestFactory()
+    null_request = factory.post('/user-create', data=None)  # Adjust the path as needed
     user_response_data = create_user(null_request).data
 
     serializer_data = {**request.data, 'user': user_response_data.get('user_id')}  # Add user_id to the data
@@ -217,8 +271,9 @@ def show_user(request, pk):
 #create a new user
 @api_view(['POST'])
 def create_user(request):
+    
     if request is None:
-        user_data = {'seat': None, 'flight': None}  # Add all the fields from your serializer
+        user_data = {'seat': None, 'flight': None}
     else:
         user_data = request.data
 
@@ -352,16 +407,7 @@ def show_booking(request, pk):
     serializer = BookingSerializer(booking, many=False)
     return Response(serializer.data)
 
-#create a new booking
-@api_view(['POST'])
-def create_booking(request, pk):
-    serializer = BookingSerializer(data=request.data)
 
-    if serializer.is_valid():
-        serializer.save()
-        seat = Seat.objects.filter(seat_id=pk).update(availability=0)
-
-    return Response(serializer.data)
 
 #Update an existing booking
 @api_view(['POST'])
@@ -552,20 +598,7 @@ def show_registereduser(request, pk):
     serializer = RegisteredUserSerializer(registereduser, many=False)
     return Response(serializer.data)
 
-#create a new registereduser
-factory = RequestFactory()
-null_request = factory.post('/user-create', data=None)  # Adjust the path as needed
 
-@api_view(['POST'])
-def create_registereduser(request):
-    user_response_data = create_user(null_request).data
-
-    serializer_data = {**request.data, 'user': user_response_data.get('user_id')}  # Add user_id to the data
-
-    serializer = RegisteredUserSerializer(data=serializer_data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
 
 #Update an existing registereduser
 @api_view(['POST'])
