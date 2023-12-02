@@ -14,6 +14,9 @@ from .models import Flight, User, RegisteredUser, Seat, Plane, Crew, Booking
 """ NON-ENTITY RELATED FUNCTIONS
 These functions satisy some of the other project requirements that aren't just CRUD"""
 
+
+
+#sends an email receipt to the user
 @api_view(['POST'])
 def send_email(request):
     subject = 'Flight Receipt'
@@ -25,7 +28,7 @@ def send_email(request):
 
     return Response('Email sent successfully!')
 
-
+#adds the username and password of the registered user to the database
 @api_view(['POST'])
 def create_registereduser(request):
     user_response_data = create_user(null_request).data
@@ -36,7 +39,6 @@ def create_registereduser(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
-
 
 #checks if the input username and password matches with any registered user
 @api_view(['POST'])
@@ -60,9 +62,13 @@ def seats_on_flight(request, pk):
     serializer = SeatSerializer(seats, many=True)
     return Response(serializer.data)
 
-#Make payment
+"""#Make payment
 @api_view(['POST'])
-def make_payment(request, pk):
+def make_payment(request, flight_pk, seat_pk, user_id):
+    seat = Seat.objects.filter(seat__in=seat_pk).update(availability=0)
+
+    serializer = SeatSerializer(seat, many=True)
+
     user = User.objects.get(user_id=pk)
     serializer = UserSerializer(instance = user, data=request.data)
     combined = {}
@@ -81,7 +87,7 @@ def make_payment(request, pk):
             }
          
         serializer.save()
-    return Response(combined)
+    return Response(combined)"""
 
 #returns all the crew members for a specific flight (pk = flight_id)
 @api_view(['GET'])
@@ -345,10 +351,13 @@ def show_booking(request, pk):
 
 #create a new booking
 @api_view(['POST'])
-def create_booking(request):
+def create_booking(request, pk):
     serializer = BookingSerializer(data=request.data)
+
     if serializer.is_valid():
         serializer.save()
+        seat = Seat.objects.filter(seat_id=pk).update(availability=0)
+
     return Response(serializer.data)
 
 #Update an existing booking
