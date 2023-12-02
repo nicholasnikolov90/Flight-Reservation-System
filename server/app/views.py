@@ -19,8 +19,11 @@ These functions satisy some of the other project requirements that aren't just C
 #sends an email receipt to the user
 @api_view(['POST'])
 def send_email(request):
+    price = request.data.get('price')
+    seat = request.data.get('seat_id')
+
     subject = 'Flight Receipt'
-    message = 'Congratulations on your purchase, this is your proof of receipt'
+    message = f"Congratulations on your purchase of the flight, you will be sitting in seat number: {seat}, and you paid: {price}"
     from_email = 'flight_reservation@gmail.com'
     recipient = ['nicknikolov7@gmail.com']
 
