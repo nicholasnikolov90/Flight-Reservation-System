@@ -96,7 +96,18 @@ const Checkout = () => {
         }),
       }
     );
-    if (res.ok) {
+
+    const res2 = await fetch(`http://127.0.0.1:8000/app/email/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price: seats[0].price,
+        seat_id: seats[0].id,
+      }),
+    });
+    if (res.ok && res2.ok) {
       setActiveStep(activeStep + 1);
     } else {
       alert("Something went wrong. Please try again.");
@@ -118,7 +129,17 @@ const Checkout = () => {
         }),
       }
     );
-    if (res.ok) {
+    const res2 = await fetch(`http://127.0.0.1:8000/app/email/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price: seats[0].price,
+        seat_id: seats[0].id,
+      }),
+    });
+    if (res.ok && res2.ok) {
       setActiveStep(activeStep + 1);
     } else {
       alert("Something went wrong. Please try again.");
