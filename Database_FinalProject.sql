@@ -394,5 +394,22 @@ VALUES
 (54, 2, 0),
 (55, 3, 1);
 
+DELETE FROM Booking WHERE flight_ID <> 1; -- Delete Booking records not related to flight_ID = 1 GOOD 
+
+DELETE FROM registeredUser WHERE user_ID NOT IN (SELECT user_ID FROM Booking WHERE flight_ID = 1) LIMIT 1000; -- Delete registeredUser records not related to flight_ID = 1 GOOD
+
+DELETE FROM User WHERE flight_ID <> 1; -- Delete User records not related to flight_ID = 1 GOOD
+
+DELETE FROM Crew WHERE flight_ID <> 1; -- GOOD
+
+-- Finally, delete records from the parent table
+DELETE FROM Seat WHERE flight_ID <> 1;
+
+DELETE FROM Flight WHERE flight_ID <> 1;
+
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM Plane WHERE plane_ID NOT IN (SELECT plane_ID FROM Flight WHERE flight_ID = 1) AND plane_ID IS NOT NULL;
+SET SQL_SAFE_UPDATES = 1;
+
 select *
-from Booking;
+from Seat
