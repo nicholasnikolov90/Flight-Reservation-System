@@ -3,8 +3,9 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import { Seat } from "../SeatMap";
 import InformationForm from "./InformationForm";
 import PaymentForm from "./PaymentForm";
@@ -32,6 +33,7 @@ export type Card = {
 // Template reference: https://github.com/mui/material-ui/tree/v5.14.18/docs/data/material/getting-started/templates/checkout
 
 const Checkout = () => {
+  const { user } = useContext(AuthContext);
   const [activeStep, setActiveStep] = useState(0);
   const [information, setInformation] = useState<Information>({
     name: "",
@@ -50,6 +52,7 @@ const Checkout = () => {
   });
   const location = useLocation();
   const seats: Seat[] = location.state.seats;
+  const flightId = location.state.flightId;
 
   function getStepContent(step: number) {
     switch (step) {
@@ -77,10 +80,50 @@ const Checkout = () => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleSubmit = () => {
-    setActiveStep(activeStep + 1);
+  const handleLoggedInSubmit = async () => {
+    console.log(seats[0].id);
+    const res = await fetch(
+      `http://127.0.0.1:8000/app/booking-create/${seats[0].id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          insurance: 0,
+          user: user.id,
+          flight: flightId,
+        }),
+      }
+    );
+    if (res.ok) {
+      setActiveStep(activeStep + 1);
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
     // TODO: Implement send email
-    // TODO: Write seat to database
+  };
+
+  const handleGuestSubmit = async () => {
+    const res = await fetch(
+      `http://127.0.0.1:8000/app/booking-create-unreg/${seats[0].id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          insurance: 0,
+          flight: Number(flightId),
+        }),
+      }
+    );
+    if (res.ok) {
+      setActiveStep(activeStep + 1);
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+    // TODO: Implement send email
   };
 
   return (
@@ -116,7 +159,11 @@ const Checkout = () => {
                 {activeStep === STEPS.length - 1 ? (
                   <Button
                     variant="contained"
-                    onClick={handleNext}
+                    onClick={
+                      user.isAuthenticated
+                        ? () => handleLoggedInSubmit()
+                        : () => handleGuestSubmit()
+                    }
                     sx={{ mt: 3, ml: 1 }}
                   >
                     Place order
@@ -124,7 +171,7 @@ const Checkout = () => {
                 ) : (
                   <Button
                     variant="contained"
-                    onClick={handleSubmit}
+                    onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                   >
                     Next

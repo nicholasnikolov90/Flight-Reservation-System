@@ -56,7 +56,9 @@ const SeatMap = () => {
 
   const handleCheckout = () => {
     const seatToCheckout = seats.filter((seat) => seat.isSelected);
-    navigate("/checkout", { state: { seats: seatToCheckout } });
+    navigate("/checkout", {
+      state: { seats: seatToCheckout, flightId: flightId },
+    });
   };
   return (
     <div>
