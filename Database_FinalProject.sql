@@ -327,4 +327,212 @@ VALUES
 (47, 1, 1),
 (48, 1, 0);
 
+-- Populate Flight for flight_ID = 2
+INSERT INTO Flight (origin, destination, date, departure_time, arrival_time, plane_ID)
+VALUES
+('JFK', 'LAX', '2023-11-22', '12:00:00', '15:30:00', 1);
+
+-- Comfort seats for flight_ID = 2
+INSERT INTO Seat (flight_ID, seat_number, seat_type, availability, price)
+VALUES
+(2, 1, 'C', 1, 350.00),
+(2, 2, 'C', 1, 350.00),
+(2, 3, 'C', 1, 350.00),
+(2, 4, 'C', 1, 350.00),
+(2, 5, 'C', 1, 350.00),
+(2, 6, 'C', 1, 350.00),
+(2, 7, 'C', 1, 350.00),
+(2, 8, 'C', 1, 350.00),
+(2, 9, 'C', 1, 350.00),
+(2, 10, 'C', 1, 350.00),
+(2, 11, 'C', 1, 350.00),
+(2, 12, 'C', 1, 350.00);
+
+-- Business seats for flight_ID = 2
+INSERT INTO Seat (flight_ID, seat_number, seat_type, availability, price)
+VALUES
+(2, 13, 'B', 1, 500.00),
+(2, 14, 'B', 1, 500.00),
+(2, 15, 'B', 1, 500.00),
+(2, 16, 'B', 1, 500.00),
+(2, 17, 'B', 1, 500.00),
+(2, 18, 'B', 1, 500.00),
+(2, 19, 'B', 1, 500.00),
+(2, 20, 'B', 1, 500.00),
+(2, 21, 'B', 1, 500.00),
+(2, 22, 'B', 1, 500.00),
+(2, 23, 'B', 1, 500.00),
+(2, 24, 'B', 1, 500.00);
+
+-- Ordinary seats for flight_ID = 2
+INSERT INTO Seat (flight_ID, seat_number, seat_type, availability, price)
+VALUES
+(2, 25, 'O', 1, 250.00),
+(2, 26, 'O', 1, 250.00),
+(2, 27, 'O', 1, 250.00),
+(2, 28, 'O', 1, 250.00),
+(2, 29, 'O', 1, 250.00),
+(2, 30, 'O', 1, 250.00),
+(2, 31, 'O', 1, 250.00),
+(2, 32, 'O', 1, 250.00),
+(2, 33, 'O', 1, 250.00),
+(2, 34, 'O', 1, 250.00),
+(2, 35, 'O', 1, 250.00),
+(2, 36, 'O', 1, 250.00),
+(2, 37, 'O', 1, 250.00),
+(2, 38, 'O', 1, 250.00),
+(2, 39, 'O', 1, 250.00),
+(2, 40, 'O', 1, 250.00),
+(2, 41, 'O', 1, 250.00),
+(2, 42, 'O', 1, 250.00),
+(2, 43, 'O', 1, 250.00),
+(2, 44, 'O', 1, 250.00),
+(2, 45, 'O', 1, 250.00),
+(2, 46, 'O', 1, 250.00),
+(2, 47, 'O', 1, 250.00),
+(2, 48, 'O', 1, 250.00);
+
+-- Comfort seats users for flight_ID = 2
+INSERT INTO User (seat_ID, flight_ID)
+VALUES
+(49, 2),
+(50, 2),
+(51, 2),
+(52, 2),
+(53, 2),
+(54, 2),
+(55, 2),
+(56, 2),
+(57, 2),
+(58, 2),
+(59, 2),
+(60, 2);
+
+-- Business seats users for flight_ID = 2
+INSERT INTO User (seat_ID, flight_ID)
+VALUES
+(61, 2),
+(62, 2),
+(63, 2),
+(64, 2),
+(65, 2),
+(66, 2),
+(67, 2),
+(68, 2),
+(69, 2),
+(70, 2),
+(71, 2),
+(72, 2);
+
+-- Ordinary seats users for flight_ID = 2
+INSERT INTO User (seat_ID, flight_ID)
+VALUES
+(73, 2),
+(74, 2),
+(75, 2),
+(76, 2),
+(77, 2),
+(78, 2),
+(79, 2),
+(80, 2),
+(81, 2),
+(82, 2),
+(83, 2),
+(84, 2),
+(85, 2),
+(86, 2),
+(87, 2),
+(88, 2),
+(89, 2),
+(90, 2),
+(91, 2),
+(92, 2),
+(93, 2),
+(94, 2),
+(95, 2),
+(96, 2);
+
+INSERT INTO registeredUser (user_ID, first_name, last_name, address, user_name, pass_word)
+VALUES
+(50, 'Benjamin', 'Hayes', '456 Business St', 'comfort_user26', 'password50'),
+(55, 'Olivia', 'Turner', '404 Business St', 'comfort_user31', 'password55'),
+(67, 'William', 'Adams', '777 Business St', 'business_user43', 'password67'),
+(72, 'Emily', 'Parker', '5678 Business St', 'business_user48', 'password72');
+
+INSERT INTO registeredUser (user_ID, first_name, last_name, address, user_name, pass_word)
+VALUES
+(88, 'Samuel', 'Martinez', '888 Ordinary St', 'ordinary_user44', 'password88'),
+(89, 'Grace', 'Johnson', '999 Ordinary St', 'ordinary_user45', 'password89'),
+(91, 'Henry', 'Nelson', '1234 Ordinary St', 'ordinary_user47', 'password91'),
+(93, 'Victoria', 'Smith', '000 Ordinary St', 'ordinary_user49', 'password93'),
+(94, 'Joseph', 'Anderson', '5678 Ordinary St', 'ordinary_user50', 'password94');
+
+-- Crew for flight_ID = 2
+INSERT INTO Crew (first_name, last_name, flight_ID)
+VALUES
+('Captain', 'Miller', 2),
+('Co-Pilot', 'Taylor', 2),
+('Flight Attendant', 'Harris', 2),
+('Flight Attendant', 'Baker', 2),
+('Flight Attendant', 'Allen', 2);
+
+-- Comfort seats bookings for flight_ID = 2
+INSERT INTO Booking (user_ID, flight_ID, insurance)
+VALUES
+(49, 2, 1),
+(50, 2, 0),
+(51, 2, 1),
+(52, 2, 0),
+(53, 2, 1),
+(54, 2, 0),
+(55, 2, 1),
+(56, 2, 0),
+(57, 2, 1),
+(58, 2, 0),
+(59, 2, 1),
+(60, 2, 0);
+
+-- Business seats bookings for flight_ID = 2
+INSERT INTO Booking (user_ID, flight_ID, insurance)
+VALUES
+(61, 2, 1),
+(62, 2, 0),
+(63, 2, 1),
+(64, 2, 0),
+(65, 2, 1),
+(66, 2, 0),
+(67, 2, 1),
+(68, 2, 0),
+(69, 2, 1),
+(70, 2, 0),
+(71, 2, 1),
+(72, 2, 0);
+
+-- Ordinary seats bookings for flight_ID = 2
+INSERT INTO Booking (user_ID, flight_ID, insurance)
+VALUES
+(73, 2, 1),
+(74, 2, 0),
+(75, 2, 1),
+(76, 2, 0),
+(77, 2, 1),
+(78, 2, 0),
+(79, 2, 1),
+(80, 2, 0),
+(81, 2, 1),
+(82, 2, 0),
+(83, 2, 1),
+(84, 2, 0),
+(85, 2, 1),
+(86, 2, 0),
+(87, 2, 1),
+(88, 2, 0),
+(89, 2, 1),
+(90, 2, 0),
+(91, 2, 1),
+(92, 2, 0),
+(93, 2, 1),
+(94, 2, 0),
+(95, 2, 1),
+(96, 2, 0);
 
